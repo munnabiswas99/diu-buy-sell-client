@@ -3,7 +3,7 @@ import ProductCard from "../../components/productCard/ProductCard";
 
 const Products = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 my-10">
+    <div className="px-5 my-10">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">

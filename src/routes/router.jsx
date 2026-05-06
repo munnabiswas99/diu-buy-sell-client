@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
+import SellPost from "../pages/sellPost/SellPost";
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
             {
                 path: '/products',
                 Component: Products
+            },
+            {
+                path: "sell-post",
+                Component: SellPost
             }
         ]
     }

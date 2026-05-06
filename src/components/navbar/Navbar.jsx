@@ -59,10 +59,8 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-3">
-          <NavLink to="/" className="block">Home</NavLink>
-          <NavLink to="/products" className="block">Products</NavLink>
-          <NavLink to="/sell-post" className="block">Sell Post</NavLink>
+        <ul className="md:hidden px-4 pb-4 space-y-3">
+          {links}
 
           <div className="flex flex-col space-y-2 pt-2">
             <button className="w-full border border-green-600 text-green-600 py-2 rounded-md">
@@ -72,7 +70,7 @@ const Navbar = () => {
               Register
             </button>
           </div>
-        </div>
+        </ul>
       )}
     </nav>
   );
