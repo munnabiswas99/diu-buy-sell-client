@@ -1,7 +1,21 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const navStyle = ({ isActive }) =>
+    isActive
+      ? "text-green-600 font-semibold"
+      : "text-gray-700 hover:text-green-600";
+
+  const links = (
+    <>
+      <li><NavLink to="/" className={navStyle}>Home</NavLink></li>
+      <li><NavLink to="/products" className={navStyle}>Products</NavLink></li>
+      <li><NavLink to="/sell-post" className={navStyle}>Sell Post</NavLink></li>
+    </>
+  );
 
   return (
     <nav className="bg-white shadow-md">
@@ -14,79 +28,47 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 items-center">
-            {/* Center Nav Links */}
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-700 hover:text-green-600">
-                Home
-              </a>
-              <a href="#" className="text-gray-700 hover:text-green-600">
-                Products
-              </a>
-              <a href="#" className="text-gray-700 hover:text-green-600">
-                Post Ad
-              </a>
-            </div>
+          <div className="hidden md:flex items-center space-x-8">
+            <ul className="flex space-x-6">{links}</ul>
 
-            {/* Right Buttons */}
-            <div className="flex space-x-3 ml-6">
-              <button className="px-4 py-1 border border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-50">
+            <div className="flex space-x-3">
+              <button className="px-4 py-1 border border-green-600 text-green-600 rounded-md hover:bg-green-50">
                 Sign In
               </button>
-              <button className="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-indigo-700">
+              <button className="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
                 Register
               </button>
             </div>
           </div>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Toggle */}
           <div className="md:hidden">
             <button onClick={() => setIsOpen(!isOpen)}>
-              <svg
-                className="w-6 h-6 text-gray-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor">
                 {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
                 )}
               </svg>
             </button>
           </div>
+
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-3">
-          <a href="#" className="block text-gray-700">
-            Home
-          </a>
-          <a href="#" className="block text-gray-700">
-            Products
-          </a>
-          <a href="#" className="block text-gray-700">
-            Post Ad
-          </a>
+          <NavLink to="/" className="block">Home</NavLink>
+          <NavLink to="/products" className="block">Products</NavLink>
+          <NavLink to="/sell-post" className="block">Sell Post</NavLink>
 
           <div className="flex flex-col space-y-2 pt-2">
-            <button className="w-full px-4 py-2 border border-indigo-600 text-green-600 rounded-md">
+            <button className="w-full border border-green-600 text-green-600 py-2 rounded-md">
               Sign In
             </button>
-            <button className="w-full px-4 py-2 bg-green-600 text-white rounded-md">
+            <button className="w-full bg-green-600 text-white py-2 rounded-md">
               Register
             </button>
           </div>
