@@ -3,6 +3,8 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
 import SellPost from "../pages/sellPost/SellPost";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/auth/login/Login";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,16 @@ export const router = createBrowserRouter([
             {
                 path: "sell-post",
                 Component: SellPost
+            }
+        ]
+    },
+    {
+        path: "/",
+        Component: AuthLayout,
+        children: [
+            {
+                path: "/login",
+                Component: Login
             }
         ]
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../logo/Logo";
 
 const Footer = () => {
   return (
@@ -7,8 +8,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <h2 className="text-xl font-bold text-white mb-3">Daffodil Hub</h2>
-            <p className="text-sm">
+            <Logo></Logo>
+            <p className="text-sm my-4">
               Buy and sell used products easily within Daffodil International
               University. Safe, simple, and student-friendly marketplace.
             </p>

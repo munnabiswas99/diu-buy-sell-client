@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
+import Logo from "../logo/Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +24,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
 
           {/* Logo */}
-          <div className="text-xl font-bold text-green-700">
-            Daffodil Hub
-          </div>
+        <Logo></Logo>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
