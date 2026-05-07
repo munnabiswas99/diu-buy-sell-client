@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SellPost = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -9,7 +10,51 @@ const SellPost = () => {
     formState: { errors },
   } = useForm();
 
-  const handlePost = (data) => console.log(data);
+  const handlePost = async (data) => {
+    console.log(data);
+
+    const imageFiles = Array.from(data.images);
+
+    if (imageFiles.length > 5) {
+      alert("Max 5 images allowed");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const imageUploadPromise = imageFiles.map((image) => {
+        const formData = new FormData();
+        formData.append("image", image);
+
+        return fetch(
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_BB_API_KEY}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        )
+          .then((res) => res.json())
+          .then((result) => result.data.url);
+      });
+
+      const imageUrls = await Promise.all(imageUploadPromise);
+
+      const productData = {
+        ...data,
+        images: imageUrls,
+      };
+
+      console.log(productData);
+
+      // Send data to backend
+      // await fetch(...)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -175,9 +220,9 @@ const SellPost = () => {
           </label>
           <br />
           <input
-            className="border rounded-lg p-2 w-full my-1"
-            type="img"
-            placeholder="add images"
+            type="file"
+            multiple
+            accept="image/*"
             {...register("images", { required: true })}
           />
           <br />
@@ -189,8 +234,10 @@ const SellPost = () => {
           <br />
 
           <input
-            className="bg-green-600 py-2 px-3 rounded-lg my-4 text-white"
+            className="bg-green-600 py-2 px-4 rounded-lg my-4 text-white disabled:bg-gray-400"
             type="submit"
+            value={loading ? "Uploading..." : "Submit"}
+            disabled={loading}
           />
         </form>
       </div>
