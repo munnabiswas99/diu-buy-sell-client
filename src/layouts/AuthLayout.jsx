@@ -1,19 +1,12 @@
-import React from 'react';
-import Logo from '../components/logo/Logo';
-import { Outlet } from 'react-router';
-
-import authImage from "../assets/authImage.png";
+import React from "react";
+import { Outlet } from "react-router";
 
 const AuthLayout = () => {
-    return (
-        <div className='w-11/12 mx-auto'>
-            <Logo></Logo>
-            <div className='flex justify-between'>
-                <div className='flex-1'><Outlet></Outlet></div>
-                <div className='flex-1'><img src={authImage} alt="" /></div>
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <Outlet></Outlet>
+    </div>
+  );
 };
 
 export default AuthLayout;
