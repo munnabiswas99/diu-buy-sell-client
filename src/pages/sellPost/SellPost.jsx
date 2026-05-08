@@ -1,245 +1,265 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../hooks/useAuth";
 
 const SellPost = () => {
   const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const handlePost = async (data) => {
     console.log(data);
-
-    const imageFiles = Array.from(data.images);
-
-    if (imageFiles.length > 5) {
-      alert("Max 5 images allowed");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const imageUploadPromise = imageFiles.map((image) => {
-        const formData = new FormData();
-        formData.append("image", image);
-
-        return fetch(
-          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_BB_API_KEY}`,
-          {
-            method: "POST",
-            body: formData,
-          },
-        )
-          .then((res) => res.json())
-          .then((result) => result.data.url);
-      });
-
-      const imageUrls = await Promise.all(imageUploadPromise);
-
-      const productData = {
-        ...data,
-        images: imageUrls,
-      };
-
-      console.log(productData);
-
-      // Send data to backend
-      // await fetch(...)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
-    <div>
-      <h1 className="font-bold text-4xl my-10">Post Your Product For Sell</h1>
-      <h1 className="text-2xl font-semibold mb-4">Product Details :</h1>
-      <div>
+    <div className="max-w-6xl mx-auto py-10 px-4">
+
+      {/* Heading */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold text-gray-800">
+          Sell Your Product
+        </h1>
+
+        <p className="text-gray-500 mt-2">
+          Post your used product for students in Daffodil Exchange.
+        </p>
+      </div>
+
+      {/* Form Container */}
+      <div className="bg-white shadow-md rounded-2xl border p-6 md:p-10">
+
         <form onSubmit={handleSubmit(handlePost)}>
-          <div className="flex flex-col md:flex-row lg:flex-row justify-between gap-2 md:gap-20 lg:gap-20">
-            {/* User Info */}
-            <div className="w-full">
-              <label htmlFor="" className="text-xl font-semibold">
-                Your Name
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="text"
-                placeholder="Your Name"
-                {...register("displayName", { required: true })}
-              />
-              <br />
-              {errors.displayName && (
-                <span className="text-red-500 text-sm font-bold">
-                  Name is required
-                </span>
-              )}
-              <br />
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Email
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="email"
-                placeholder="Your Name"
-                {...register("email", { required: true })}
-              />
-              <br />
-              {errors.email && (
-                <span className="text-red-500 text-sm font-bold">
-                  Email is required
-                </span>
-              )}
-              <br />
+          {/* Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Phone
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="tel"
-                placeholder="Phone Number"
-                {...register("phone", { required: true })}
-              />
-              <br />
-              {errors.phone && (
-                <span className="text-red-500 text-sm font-bold">
-                  Phone is required
-                </span>
-              )}
-              <br />
+            {/* User Information */}
+            <div className="space-y-5">
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Social Link
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="text"
-                placeholder="eg: telegram/ whatsapp/ messenger"
-                {...register("social", { required: true })}
-              />
-              <br />
-              {errors.social && (
-                <span className="text-red-500 text-sm font-bold">
-                  Social Link is required
-                </span>
-              )}
-              <br />
+              <h2 className="text-2xl font-semibold text-gray-700 border-b pb-2">
+                Seller Information
+              </h2>
+
+              {/* Name */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Your Name
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("displayName", { required: true })}
+                />
+
+                {errors.displayName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Name is required
+                  </p>
+                )}
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Email Address
+                </label>
+
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("email", { required: true })}
+                />
+
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Email is required
+                  </p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Phone Number
+                </label>
+
+                <input
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("phone", { required: true })}
+                />
+
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Phone number is required
+                  </p>
+                )}
+              </div>
+
+              {/* Social */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Social Contact Link
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Messenger / WhatsApp / Telegram"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("social", { required: true })}
+                />
+
+                {errors.social && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Social link is required
+                  </p>
+                )}
+              </div>
+
             </div>
 
-            {/* Product Info */}
-            <div className="w-full">
-              <label htmlFor="" className="text-xl font-semibold">
-                Product Name
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="text"
-                placeholder="Product Name"
-                {...register("productName", { required: true })}
-              />
-              <br />
-              {errors.productName && (
-                <span className="text-red-500 text-sm font-bold">
-                  Name is required
-                </span>
-              )}
-              <br />
+            {/* Product Information */}
+            <div className="space-y-5">
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Used Duration
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="text"
-                placeholder="eg: 7 days/3 months/ 1 year"
-                {...register("used", { required: true })}
-              />
-              <br />
-              {errors.used && (
-                <span className="text-red-500 text-sm font-bold">
-                  Used Duration is required is required
-                </span>
-              )}
-              <br />
+              <h2 className="text-2xl font-semibold text-gray-700 border-b pb-2">
+                Product Information
+              </h2>
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Location
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="tel"
-                placeholder="Your Location"
-                {...register("location", { required: true })}
-              />
-              <br />
-              {errors.location && (
-                <span className="text-red-500 text-sm font-bold">
-                  Location is required
-                </span>
-              )}
-              <br />
+              {/* Product Name */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Product Name
+                </label>
 
-              <label htmlFor="" className="text-xl font-semibold">
-                Price (Taka)
-              </label>
-              <br />
-              <input
-                className="border rounded-lg p-2 w-full my-1"
-                type="number"
-                placeholder="eg: 150, 200, 500, 1000"
-                {...register("price", { required: true })}
-              />
-              <br />
-              {errors.price && (
-                <span className="text-red-500 text-sm font-bold">
-                  Price is required
-                </span>
-              )}
-              <br />
+                <input
+                  type="text"
+                  placeholder="Enter product name"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("productName", { required: true })}
+                />
+
+                {errors.productName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Product name is required
+                  </p>
+                )}
+              </div>
+
+              {/* Used Duration */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Used Duration
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="e.g. 6 months / 1 year"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("used", { required: true })}
+                />
+
+                {errors.used && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Used duration is required
+                  </p>
+                )}
+              </div>
+
+              {/* Location */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Location
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Enter your location"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("location", { required: true })}
+                />
+
+                {errors.location && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Location is required
+                  </p>
+                )}
+              </div>
+
+              {/* Price */}
+              <div>
+                <label className="font-medium text-gray-700">
+                  Price (৳)
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="Enter price"
+                  className="w-full border rounded-xl px-4 py-3 mt-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  {...register("price", { required: true })}
+                />
+
+                {errors.price && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Price is required
+                  </p>
+                )}
+              </div>
+
             </div>
+
           </div>
 
-          {/* Image Input */}
-          <label htmlFor="" className="text-xl font-semibold">
-            Product Images
-          </label>
-          <br />
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            {...register("images", { required: true })}
-          />
-          <br />
-          {errors.images && (
-            <span className="text-red-500 text-sm font-bold">
-              Images are required
-            </span>
-          )}
-          <br />
+          {/* Image Upload */}
+          <div className="mt-10">
 
-          <input
-            className="bg-green-600 py-2 px-4 rounded-lg my-4 text-white disabled:bg-gray-400"
-            type="submit"
-            value={loading ? "Uploading..." : "Submit"}
-            disabled={loading}
-          />
+            <h2 className="text-2xl font-semibold text-gray-700 border-b pb-2 mb-5">
+              Product Images
+            </h2>
+
+            <div className="border-2 border-dashed rounded-2xl p-8 text-center bg-gray-50">
+
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                className="w-full"
+                {...register("images", { required: true })}
+              />
+
+              <p className="text-sm text-gray-500 mt-3">
+                Upload up to 5 images
+              </p>
+
+              {errors.images && (
+                <p className="text-red-500 text-sm mt-2">
+                  Product images are required
+                </p>
+              )}
+
+            </div>
+
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-8">
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-green-600 hover:bg-green-700 transition text-white font-medium px-8 py-3 rounded-xl disabled:bg-gray-400"
+            >
+              {loading ? "Uploading..." : "Post Product"}
+            </button>
+
+          </div>
+
         </form>
       </div>
     </div>

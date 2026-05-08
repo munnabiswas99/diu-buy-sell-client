@@ -31,12 +31,12 @@ const Navbar = () => {
             <ul className="flex space-x-6">{links}</ul>
 
             <div className="flex space-x-3">
-              <button className="px-4 py-1 border border-green-600 text-green-600 rounded-md hover:bg-green-50">
+              <NavLink to='/login' className="px-4 py-1 border border-green-600 text-green-600 rounded-md hover:bg-green-50">
                 Sign In
-              </button>
-              <button className="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+              </NavLink>
+              <NavLink to="/register" className="px-4 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
                 Register
-              </button>
+              </NavLink>
             </div>
           </div>
 

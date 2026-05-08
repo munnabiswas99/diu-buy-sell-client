@@ -5,6 +5,7 @@ import Products from "../pages/products/Products";
 import SellPost from "../pages/sellPost/SellPost";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/auth/login/Login";
+import Register from "../pages/auth/register/Register";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
         path: "/",
         Component: AuthLayout,
         children: [
+            {
+                path: "/register",
+                Component: Register
+            },
             {
                 path: "/login",
                 Component: Login
